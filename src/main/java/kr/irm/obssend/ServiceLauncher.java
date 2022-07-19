@@ -218,6 +218,7 @@ public class ServiceLauncher extends ServiceContext {
                 optionInfo.setFhir_obs_url(fhir_obs_url);
                 LOG.info("option {}={}", OPTION_SERVER_URL, fhir_obs_url);
             } else {
+                error = true;
                 LOG.error("option required: {}", OPTION_SERVER_URL);
             }
 

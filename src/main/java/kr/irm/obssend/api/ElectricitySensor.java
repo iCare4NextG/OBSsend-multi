@@ -31,7 +31,7 @@ public class ElectricitySensor {
         // Generate Observation
         Observation obs = new Observation();
         try{
-            // Status
+            // Status (registered | preliminary | final | amended +)
             obs.setStatus(Observation.ObservationStatus.FINAL);
 
             // Patient
@@ -39,7 +39,7 @@ public class ElectricitySensor {
             patient.setId(optionInfo.getPatient_uuid());
             obs.setSubject(new Reference(patient));
 
-            // Code
+            // Code (Type of observation (code / type))
             Coding coding = new Coding();
             coding.setSystem(SYSTEM);
             coding.setCode("I1000");
@@ -47,8 +47,8 @@ public class ElectricitySensor {
 
             obs.getCode().addCoding(coding).setText("Electricity Sensor Data");
 
-            // effective[x]
-            // yyyy-MM-dd'T'HH:mm:ss'Z' 형태의 date
+            // effective[x] (Clinically relevant time/time-period for observation)
+            // yyyy-MM-dd'T'HH:mm:ss'Z' (ISO8601)
             long obsInstant = Math.round((double) requestData.get("t"));
             Date formatDate = new Date(obsInstant);
             SimpleDateFormat instantDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+'00:00");
@@ -56,7 +56,7 @@ public class ElectricitySensor {
 
             obs.setEffective(new InstantType(instantDateFormat.format(formatDate)));
 
-            // device
+            // device (Measurement)
             Device device = new Device();
             Identifier deviceIdentifier = new Identifier();
             deviceIdentifier.setUse(Identifier.IdentifierUse.USUAL);

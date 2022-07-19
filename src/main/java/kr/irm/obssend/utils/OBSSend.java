@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 
 public class OBSSend {
     private static final Logger LOG = LoggerFactory.getLogger(OBSSend.class);
-    private static final String FHIR_OBS_URL = "https://xdsserver-dev.irm.kr/XDSServer/fhir/r4/Observation";
 
     private static OptionInfo optionInfo;
 
@@ -26,13 +25,7 @@ public class OBSSend {
         IParser parser = ctx.newJsonParser();
         String inputLine;
         try {
-            URL url;
-            if (optionInfo.getFhir_obs_url() == null || optionInfo.getFhir_obs_url() == ""){
-                url = new URL(FHIR_OBS_URL);
-            } else {
-                // Use the value of the option if the destination to be sent is set as an option
-                url = new URL(optionInfo.getFhir_obs_url());
-            }
+            URL url = new URL(optionInfo.getFhir_obs_url());
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
